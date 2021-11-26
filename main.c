@@ -15,35 +15,61 @@ int main()
     }
     else
     {
+        char x_axis[200];
+        char y_axis[200];
         char line[200];
         int count = 0;
-        char database[2000][10];
+        char storage[200][10];
+        char database[200][10];
         char copy[10];
+        int freq[200];
         int pass = 0;
+        int elements = 0;
         {
+            fgets(line, sizeof(line), data);
+            char *token1 = strtok(line,",");
+            strcpy(y_axis, token1);
+            token1 = strtok(NULL,",");
+            strcpy(x_axis, token1);
+            printf("%s %s",x_axis,y_axis);
             while (fgets(line, sizeof(line), data))
             {
-                char *token = strtok(line,",");
-                token = strtok(NULL,",");
-                strcpy(copy, token);
+                char *token2 = strtok(line,",");
+                token2 = strtok(NULL,",");
+                strcpy(copy, token2);
                 for (int i = 0; i <=count   ; i++)
                 {
                     if(strcmp(copy, database[i]) == 0)
                         pass = 1;
+                    strcpy(storage[count], token2);
 
                 }
                 if(pass == 0)
-                    strcpy(database[count], token);
+                {
+                    strcpy(database[elements], token2);
+                    elements++;
+                }
                 count++;
                 pass = 0;
             }
 
         }
 
-
-        for (int i = 0; i <=count; i++)
+        int counter = 0;
+        for (int i = 0; i <=elements; i++)
         {
-            printf("%s",database[i]);
+            for (int j = 0; j <= count ; j++)
+            {
+                if (database[i] == storage[j])
+                    counter++;
+            }
+            printf("%d",counter);
+            freq[i] = counter;
+            counter = 0;
+        }
+        for (int i = 0; i <=elements; i++)
+        {
+//            printf("%d",freq[i]);
         }
 
     }
