@@ -31,7 +31,7 @@ int main()
             strcpy(y_axis, token1);
             token1 = strtok(NULL,",");
             strcpy(x_axis, token1);
-            printf("%s %s",x_axis,y_axis);
+//            printf("%s %s",x_axis,y_axis);
             while (fgets(line, sizeof(line), data))
             {
                 char *token2 = strtok(line,",");
@@ -60,16 +60,16 @@ int main()
         {
             for (int j = 0; j <= count ; j++)
             {
-                if (database[i] == storage[j])
+                if (*database[i] == *storage[j])
                     counter++;
             }
-            printf("%d",counter);
+//            printf("%d",counter);
             freq[i] = counter;
             counter = 0;
         }
-        for (int i = 0; i <=elements; i++)
+        for (int i = 0; i < (elements - 1); i++)
         {
-//            printf("%d",freq[i]);
+            printf("%s, %d \n", database[i], freq[i]);
         }
 
     }
