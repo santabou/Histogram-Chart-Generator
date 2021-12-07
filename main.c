@@ -19,8 +19,8 @@ int main()
         char y_axis[200];
         char line[200];
         int count = 0;
-        char storage[200][10];
-        char database[200][10];
+        char storage[200][100];
+        char database[200][100];
         char copy[10];
         int freq[200];
         int pass = 0;
@@ -36,6 +36,7 @@ int main()
             {
                 char *token2 = strtok(line,",");
                 token2 = strtok(NULL,",");
+                token2[strcspn(token2, "\r\n")] = 0;
                 strcpy(copy, token2);
                 for (int i = 0; i <=count   ; i++)
                 {
@@ -53,12 +54,6 @@ int main()
             }
 
         }
-        int delnewline = 0;
-        while (delnewline < elements)
-        {
-            database[delnewline][strcspn(database[delnewline], "\r\n")] = 0;
-            delnewline++;
-        }
 
         int counter = 0;
         for (int i = 0; i <=elements; i++)
@@ -72,7 +67,7 @@ int main()
             freq[i] = counter;
             counter = 0;
         }
-        for (int i = 0; i < (elements - 1); i++)
+        for (int i = 0; i < (elements ); i++)
         {
             printf(" Categories: %s \n Freq: %d \n", database[i], freq[i]);
         }
