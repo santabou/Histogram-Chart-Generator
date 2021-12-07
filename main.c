@@ -7,7 +7,7 @@
 #include "function.c"
 int main()
 {
-    FILE* data = fopen("/Users/thitiwatsornmanee/Desktop/C Programming Lab/Histrogram-chart-generator1/Data.csv", "r");
+    FILE* data = fopen("/Users/thitiwatsornmanee/Desktop/C Programming Lab/Histrogram-chart-generator/Data.csv", "r");
     if (data == NULL)
     {
         printf("File not found");
