@@ -42,7 +42,6 @@ int main()
                     if(strcmp(copy, database[i]) == 0)
                         pass = 1;
                     strcpy(storage[count], token2);
-
                 }
                 if(pass == 0)
                 {
@@ -53,6 +52,12 @@ int main()
                 pass = 0;
             }
 
+        }
+        int delnewline = 0;
+        while (delnewline < elements)
+        {
+            database[delnewline][strcspn(database[delnewline], "\r\n")] = 0;
+            delnewline++;
         }
 
         int counter = 0;
@@ -69,7 +74,7 @@ int main()
         }
         for (int i = 0; i < (elements - 1); i++)
         {
-            printf("%s, %d \n", database[i], freq[i]);
+            printf(" Categories: %s \n Freq: %d \n", database[i], freq[i]);
         }
 
     }
