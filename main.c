@@ -5,9 +5,32 @@
 #include <string.h>
 #include <stdio.h>
 #include "function.c"
+#include "svg.c"
+void drawhistrogram( int freq[], int count)
+{
+    svg* psvg;
+    psvg = svg_create(1000, 1000);
+
+    if(psvg == NULL)
+    {
+        puts("psvg is NULL");
+    }
+    else
+    {
+        for(int i = 0; i < count;i++)
+        {
+            svg_rectangle(psvg, 40, 50*freq[i], 500+(50*i), 0, "red", "black", 0, 0, 0);
+        }
+
+        svg_finalize(psvg);
+        svg_save(psvg, "histrogram.svg");
+        svg_free(psvg);
+    }
+}
+
 int main()
 {
-    FILE* data = fopen("/Users/thitiwatsornmanee/Desktop/C Programming Lab/Histrogram-chart-generator/Data.csv", "r");
+    FILE* data = fopen("/Users/thitiwatsornmanee/Desktop/Histrogram/Data.csv", "r");
     if (data == NULL)
     {
         printf("File not found");
@@ -71,7 +94,7 @@ int main()
         {
             printf(" Categories: %s \n Freq: %d \n", database[i], freq[i]);
         }
-
+        drawhistrogram(freq,elements);
     }
     fclose(data);
 }
