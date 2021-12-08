@@ -19,7 +19,7 @@ void drawhistrogram( int freq[], int count)
     {
         for(int i = 0; i < count;i++)
         {
-            svg_rectangle(psvg, 40, 50*freq[i], 500+(50*i), 0, "red", "black", 0, 0, 0);
+            svg_rectangle(psvg, 50*freq[i], 40, 300, 500+(50*i), "red", "black", 0, 0, 0);
         }
 
         svg_finalize(psvg);

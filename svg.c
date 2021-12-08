@@ -81,11 +81,6 @@ void svg_rectangle(svg* psvg, int width, int height, int x, int y, char* fill, c
     appendstringtosvg(psvg, "' height='");
     appendnumbertosvg(psvg, height);
 
-    appendstringtosvg(psvg, "' x='");
-    appendnumbertosvg(psvg, x);
-    appendstringtosvg(psvg, "' rx='");
-    appendnumbertosvg(psvg, radiusx);
-
 
     appendstringtosvg(psvg, "' />\n");
 }
