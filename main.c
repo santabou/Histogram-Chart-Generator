@@ -27,12 +27,13 @@ int main()
         int pass = 0;
         int elements = 0;
         {
-//     get histogram categories from csv
+//     get histogram categories title from csv
             fgets(line, sizeof(line), data);
             char *token1 = strtok(line,",");
             strcpy(sample_name, token1);
             token1 = strtok(NULL,",");
             strcpy(categories,token1);
+            //     get histogram categories title from csv
 
             while (fgets(line, sizeof(line), data))
             {
