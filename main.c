@@ -22,18 +22,18 @@ int main()
         int count = 0;
         char storage[200][10];
         char database[200][10];
-        char database1D[200];
         char copy[10];
         int freq[200];
         int pass = 0;
         int elements = 0;
         {
+//     get histogram categories from csv
             fgets(line, sizeof(line), data);
             char *token1 = strtok(line,",");
             strcpy(sample_name, token1);
             token1 = strtok(NULL,",");
             strcpy(categories,token1);
-//            printf("%s %s",x_axis,y_axis);
+
             while (fgets(line, sizeof(line), data))
             {
                 char *token2 = strtok(line,",");
