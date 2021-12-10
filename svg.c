@@ -206,7 +206,7 @@ void draw_histogram_svg( int freq[], int count, char* category,char arr[m][n])
         {
 
             str_to_svg(psvg, "    <text x='");
-            num_to_svg(psvg, 200);
+            num_to_svg(psvg, 220);
             str_to_svg(psvg, "' y = '");
             num_to_svg(psvg, 330+(50*i));
             str_to_svg(psvg, "' stroke='");
