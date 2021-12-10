@@ -4,33 +4,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "function.c"
 #include "svg.c"
-void drawhistrogram( int freq[], int count)
-{
-    svg* psvg;
-    psvg = svg_create(1000, 1000);
-
-    if(psvg == NULL)
-    {
-        puts("psvg is NULL");
-    }
-    else
-    {
-        for(int i = 0; i < count;i++)
-        {
-            svg_rectangle(psvg, 50*freq[i], 40, 300, 500+(50*i), "cyan", "black", 2, 0, 0);
-        }
-
-        svg_finalize(psvg);
-        svg_save(psvg, "histrogram.svg");
-        svg_free(psvg);
-    }
-}
 
 int main()
 {
-    FILE* data = fopen("/Users/thitiwatsornmanee/Desktop/Histrogram/Data.csv", "r");
+    FILE* data = fopen("/Users/thitiwatsornmanee/Desktop/Histogram/Data.csv", "r");
     if (data == NULL)
     {
         printf("File not found");
@@ -38,12 +16,13 @@ int main()
     }
     else
     {
-        char x_axis[200];
-        char y_axis[200];
+        char sample_name[200];
+        char categories[200];
         char line[200];
         int count = 0;
-        char storage[200][100];
-        char database[200][100];
+        char storage[200][10];
+        char database[200][10];
+        char database1D[200];
         char copy[10];
         int freq[200];
         int pass = 0;
@@ -51,9 +30,9 @@ int main()
         {
             fgets(line, sizeof(line), data);
             char *token1 = strtok(line,",");
-            strcpy(y_axis, token1);
+            strcpy(sample_name, token1);
             token1 = strtok(NULL,",");
-            strcpy(x_axis, token1);
+            strcpy(categories,token1);
 //            printf("%s %s",x_axis,y_axis);
             while (fgets(line, sizeof(line), data))
             {
@@ -94,7 +73,7 @@ int main()
         {
             printf(" Categories: %s \n Freq: %d \n", database[i], freq[i]);
         }
-        drawhistrogram(freq,elements);
+        draw_histogram_svg(freq, elements, categories,*database);
     }
     fclose(data);
 }
