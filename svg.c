@@ -117,7 +117,7 @@ void draw_histogram_svg( int freq[], int count, char* category,char* data)
         for(int i = 0; i < count;i++)
         {
             str_to_svg(psvg, "    <rect fill='");
-            str_to_svg(psvg, "cyan");
+            str_to_svg(psvg, "grey");
             str_to_svg(psvg, "' stroke='");
             str_to_svg(psvg, "black");
             str_to_svg(psvg, "' ry='");
