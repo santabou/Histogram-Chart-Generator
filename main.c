@@ -8,7 +8,7 @@
 
 int main()
 {
-    FILE* data = fopen("/Users/thitiwatsornmanee/Desktop/Histogram/Data.csv", "r");
+    FILE* data = fopen("/Users/thitiwatsornmanee/Desktop/C Programming Lab/Histogram/Data.csv", "r");
     if (data == NULL)
     {
         printf("File not found");
@@ -74,7 +74,8 @@ int main()
         {
             printf(" Categories: %s \n Freq: %d \n", database[i], freq[i]);
         }
-        draw_histogram_svg(freq, elements, categories,*database);
+        printf(" Categories: %s ", database[0]);
+        draw_histogram_svg(freq, elements, categories,database);
     }
     fclose(data);
 }
