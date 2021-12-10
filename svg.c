@@ -118,7 +118,7 @@ void draw_histogram_svg( int freq[], int count, char* category,char arr[m][n])
         for(int i = 0; i < count;i++)
         {
             str_to_svg(psvg, "    <rect fill='");
-            str_to_svg(psvg, "grey");
+            str_to_svg(psvg, "skyblue");
             str_to_svg(psvg, "' stroke='");
             str_to_svg(psvg, "black");
             str_to_svg(psvg, "' ry='");
@@ -206,7 +206,7 @@ void draw_histogram_svg( int freq[], int count, char* category,char arr[m][n])
         {
 
             str_to_svg(psvg, "    <text x='");
-            num_to_svg(psvg, 250);
+            num_to_svg(psvg, 200);
             str_to_svg(psvg, "' y = '");
             num_to_svg(psvg, 330+(50*i));
             str_to_svg(psvg, "' stroke='");
@@ -216,7 +216,10 @@ void draw_histogram_svg( int freq[], int count, char* category,char arr[m][n])
             str_to_svg(psvg, "' font-size='");
             num_to_svg(psvg, 20);
             str_to_svg(psvg, "px'>");
-            str_to_svg(psvg, ("%s",arr[i]));
+            char text[200];
+            sprintf(text, "%s", arr[i]);
+            printf("%s",text);
+            str_to_svg(psvg, text);
             str_to_svg(psvg, "</text>\n");
 
             str_to_svg(psvg, "' />\n");
