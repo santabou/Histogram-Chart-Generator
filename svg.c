@@ -226,7 +226,7 @@ void draw_histogram_svg( int freq[], int count, char* category,char* data)
 
 
         svg_finalize(psvg);
-        svg_save(psvg, "histrogram.svg");
+        svg_save(psvg, "histogram.svg");
         svg_free(psvg);
     }
 }
