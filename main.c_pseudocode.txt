@@ -1,0 +1,70 @@
+calling library
+main function
+Begin
+    declare pointer1(data) then open and read file (Data.csv)
+    if data equal to NULL
+    Begin
+        print "File not found"
+        exit the program
+    End
+    else
+    Begin
+        declare char sample_name[300]
+        declare char categories[300]
+        declare char line[300]
+        declare int count = 0
+        declare char storage[300][300]
+        declare char database[300][300]
+        declare char copy[300]
+        declare int pass equal to 0
+        declare int elements equal to 0
+        declare int freq[elements]
+        #read the first line of the file
+        read the string from file(data) with the size of (line)  as (line)
+        declare char *token1 equal to the breaks string (line)  with the delimiter ","
+        copies the string pointed to, by token1 to sample_name
+        token1 equal to the breaks string (NULL)  with the delimiter ","
+        copies the string pointed to, by token1 to categories
+        #read others line to store data
+        while loop(read the string from file(data) with the size of (line)  as (line) )
+        Begin
+                        declare char *token2 equal to the breaks string (line)  with the delimiter ","
+                        token2 equal to the breaks string (NULL)  with the delimiter ","
+                        token2[index of the first character found(token2, "\r\n")] = 0
+                        copies the string pointed to, by token2 to copy
+                        for loop(int i = 0; i <=(count)   ; i++)
+                            Begin
+                                if (compares (copy) by (database at index i)) == 0)
+                                    pass equal to 1
+                                copies the string pointed to, by token2 to storage[count]
+                            End
+                        if (pass == 0)
+                            Begin
+                                copies the string pointed to, by token2 to array database at index (elements]
+                                (elements) increment
+                            End
+                        (count) increment
+                        pass equal to zero
+        End
+        #find frequency for each categories
+        declare int counter equal to 0
+        for loop(int i = 0; i <=elements; i++)
+        Begin
+            for loop(int j = 0; j <= count ; j++):
+            Begin
+                if (pointer point to database at index i == pointer point to storage at index j)
+                    (counter) increment
+            End
+            array (freq) at index i equal to (counter)
+            counter equal to 0
+        End
+        #Print out the categories and it frequency
+        for loop(int i = 0; i < (elements ); i++):
+        Begin
+            printf " Categories: ((database) at index i) \n Freq: ((freq) at index i) \n"
+        End
+        use function draw_histogram_svg with argument ((freq), (elements), (categories),(database),(size))
+    End
+    close file (data)
+End
+
