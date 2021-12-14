@@ -12,14 +12,11 @@ typedef struct svg
 void str_to_svg(svg* psvg, char* text)
 {
     int l = strlen(psvg->svg) + strlen(text) + 1;
-
     char* p = realloc(psvg->svg, l);
-
     if(p)
     {
         psvg->svg = p;
     }
-
     strcat(psvg->svg, text);
 }
 
@@ -101,9 +98,10 @@ int max(int arr[], int arr_length) {
     }
     return maximum;
 }
-int m = 200;
-int n = 10;
-void draw_histogram_svg( int freq[], int count, char* category,char arr[m][n])
+
+int m;
+int n;
+void draw_histogram_svg( int freq[], int count, char* category,char arr[m][n],long int textsize)
 {
     svg* psvg;
     psvg = svg_create(1000, 1000);
@@ -204,7 +202,6 @@ void draw_histogram_svg( int freq[], int count, char* category,char arr[m][n])
 
         for(int i = 0; i < count;i++)
         {
-
             str_to_svg(psvg, "    <text x='");
             num_to_svg(psvg, 220);
             str_to_svg(psvg, "' y = '");
@@ -216,9 +213,8 @@ void draw_histogram_svg( int freq[], int count, char* category,char arr[m][n])
             str_to_svg(psvg, "' font-size='");
             num_to_svg(psvg, 20);
             str_to_svg(psvg, "px'>");
-            char text[200];
+            char text[textsize];
             sprintf(text, "%s", arr[i]);
-            printf("%s",text);
             str_to_svg(psvg, text);
             str_to_svg(psvg, "</text>\n");
 

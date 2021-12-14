@@ -16,16 +16,19 @@ int main()
     }
     else
     {
-        char sample_name[200];
-        char categories[200];
-        char line[200];
+        fseek(data, 0L, SEEK_END);
+        long int size = ftell(data);
+        fseek(data, 0L, SEEK_SET);
+        char sample_name[size];
+        char categories[size];
+        char line[size];
         int count = 0;
-        char storage[200][10];
-        char database[200][10];
-        char copy[10];
-        int freq[200];
+        char storage[size][size];
+        char database[size][size];
+        char copy[size];
         int pass = 0;
         int elements = 0;
+        int freq[elements];
         {
 //     get histogram categories title from csv
             fgets(line, sizeof(line), data);
@@ -33,7 +36,7 @@ int main()
             strcpy(sample_name, token1);
             token1 = strtok(NULL,",");
             strcpy(categories,token1);
-            //     get histogram categories title from csv
+//     get histogram categories title from csv
 
             while (fgets(line, sizeof(line), data))
             {
@@ -57,7 +60,6 @@ int main()
             }
 
         }
-
         int counter = 0;
         for (int i = 0; i <=elements; i++)
         {
@@ -66,7 +68,6 @@ int main()
                 if (*database[i] == *storage[j])
                     counter++;
             }
-//            printf("%d",counter);
             freq[i] = counter;
             counter = 0;
         }
@@ -74,7 +75,7 @@ int main()
         {
             printf(" Categories: %s \n Freq: %d \n", database[i], freq[i]);
         }
-        draw_histogram_svg(freq, elements, categories,database);
+        draw_histogram_svg(freq, elements, categories,database,size);
     }
     fclose(data);
 }
