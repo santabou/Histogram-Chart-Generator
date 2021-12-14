@@ -1,6 +1,3 @@
-//
-// Created by Thitiwat Sornmanee on 16/11/2021 AD.
-//
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -16,19 +13,16 @@ int main()
     }
     else
     {
-        fseek(data, 0L, SEEK_END);
-        long int size = ftell(data);
-        fseek(data, 0L, SEEK_SET);
-        char sample_name[size];
-        char categories[size];
-        char line[size];
+        char sample_name[300];
+        char categories[300];
+        char line[300];
         int count = 0;
-        char storage[size][size];
-        char database[size][size];
-        char copy[size];
+        char storage[300][300];
+        char database[300][300];
+        char copy[300];
+        int freq[300];
         int pass = 0;
         int elements = 0;
-        int freq[elements];
         {
 //     get histogram categories title from csv
             fgets(line, sizeof(line), data);
@@ -36,7 +30,7 @@ int main()
             strcpy(sample_name, token1);
             token1 = strtok(NULL,",");
             strcpy(categories,token1);
-//     get histogram categories title from csv
+            //     get histogram categories title from csv
 
             while (fgets(line, sizeof(line), data))
             {
@@ -60,6 +54,7 @@ int main()
             }
 
         }
+
         int counter = 0;
         for (int i = 0; i <=elements; i++)
         {
@@ -75,7 +70,7 @@ int main()
         {
             printf(" Categories: %s \n Freq: %d \n", database[i], freq[i]);
         }
-        draw_histogram_svg(freq, elements, categories,database,size);
+        draw_histogram_svg(freq, elements, categories,database);
     }
     fclose(data);
 }

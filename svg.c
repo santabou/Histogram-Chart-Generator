@@ -12,11 +12,14 @@ typedef struct svg
 void str_to_svg(svg* psvg, char* text)
 {
     int l = strlen(psvg->svg) + strlen(text) + 1;
+
     char* p = realloc(psvg->svg, l);
+
     if(p)
     {
         psvg->svg = p;
     }
+
     strcat(psvg->svg, text);
 }
 
@@ -98,10 +101,9 @@ int max(int arr[], int arr_length) {
     }
     return maximum;
 }
-
-int m;
-int n;
-void draw_histogram_svg( int freq[], int count, char* category,char arr[m][n],long int textsize)
+int m = 300;
+int n = 300;
+void draw_histogram_svg( int freq[], int count, char* category,char arr[m][n])
 {
     svg* psvg;
     psvg = svg_create(1000, 1000);
@@ -138,7 +140,7 @@ void draw_histogram_svg( int freq[], int count, char* category,char arr[m][n],lo
         }
 
 // Highest Frequency
-    int max_freq = max(freq,count);
+        int max_freq = max(freq,count);
 
 // Line X-axis
         str_to_svg(psvg, "    <line stroke='");
@@ -203,7 +205,7 @@ void draw_histogram_svg( int freq[], int count, char* category,char arr[m][n],lo
         for(int i = 0; i < count;i++)
         {
             str_to_svg(psvg, "    <text x='");
-            num_to_svg(psvg, 220);
+            num_to_svg(psvg, 200);
             str_to_svg(psvg, "' y = '");
             num_to_svg(psvg, 330+(50*i));
             str_to_svg(psvg, "' stroke='");
@@ -213,7 +215,7 @@ void draw_histogram_svg( int freq[], int count, char* category,char arr[m][n],lo
             str_to_svg(psvg, "' font-size='");
             num_to_svg(psvg, 20);
             str_to_svg(psvg, "px'>");
-            char text[textsize];
+            char text[300];
             sprintf(text, "%s", arr[i]);
             str_to_svg(psvg, text);
             str_to_svg(psvg, "</text>\n");
