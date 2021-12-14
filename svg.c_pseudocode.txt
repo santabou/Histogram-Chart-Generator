@@ -1,4 +1,5 @@
-calling library
+Include library
+
 declare struct svg as svg
 Begin
      declare char* svg;
@@ -9,8 +10,8 @@ End
 
 declare void function str_to_svg(svg* psvg, char* text)
 Begin
-    declare int l equal to sum of the length of (psvg point to svg), the length of (text)  and 1
-    declare char* p equal to Reallocates the size of ((psvg) point to (svg), l) of memory
+    declare int l = sum of the length of (psvg point to svg), the length of (text)  and 1
+    declare char* p = Reallocates the size of ((psvg) point to (svg), l) of memory
     if(p)
     Begin
         (psvg) point to (svg) equal p
@@ -27,11 +28,11 @@ End
 
 declare svg* function svg_create(int width, int height)
 Begin
-    declare svg* psvg equal to memory allocates the size of (svg) of memory
-    if(psvg not equal to NULL)
+    declare svg* psvg = memory allocates the size of (svg) of memory
+    if(psvg != NULL)
     Begin
         *psvg = (svg){.svg = NULL, .width = width, .height = height, .finalized = false};
-         psvg point to svg equal to  memory allocates the size of (1) of memory
+         psvg point to svg =  memory allocates the size of (1) of memory
          sends formatted ("%s", "\0") output to a string pointed to, by psvg->svg
          use function str_to_svg(psvg, "<svg width='");
          use function num_to_svg(psvg, width);
@@ -49,7 +50,7 @@ End
 declare void function svg_finalize(svg* psvg)
 Begin
     use function str_to_svg(psvg, "</svg>");
-    psvg->finalized equal to true
+    set psvg->finalized = true
 End
 
 declare void function svg_save(svg* psvg, char* filepath)
@@ -76,23 +77,23 @@ End
 //Max value in array
 declare int function max(int arr[], int arr_length)
 Begin
-    declare int maximum equal to array arr index 0
+    declare int maximum = array arr index 0
     for loop(int i = 1; i < arr_length; i++)
     Begin
         if (arr[i] > maximum)
         Begin
-            maximum equal to array arr index i
+            set maximum = array(arr) index i
         End
     End
     return maximum
 End
 
-declare int m equal to 300
-declare int n equal to 300
+declare int m = 300
+declare int n = 300
 declare void function draw_histogram_svg( int freq[], int count, char* category,char arr[m][n])
 Begin
     declare svg* psvg
-    psvg equal to svg_create(1000, 1000)
+    set psvg = svg_create(1000, 1000)
     if(psvg == NULL)
     Begin
         writes a string "psvg is NULL"
@@ -125,7 +126,7 @@ Begin
         End
 
 // Highest Frequency
-    declare int max_freq equal to max(freq,count);
+    declare int max_freq = result of function max(freq,count);
 
 // Line X-axis
         use function str_to_svg(psvg, "    <line stroke='");
@@ -200,8 +201,7 @@ Begin
             use function str_to_svg(psvg, "' font-size='");
             use function num_to_svg(psvg, 20);
             use function str_to_svg(psvg, "px'>");
-            declare char text[textsize];
-            sprintf(text, "%s", arr[i]);
+            declare char text[300];
             sends formatted ("%s", arr[i]) output to a string pointed to, by text
             use function str_to_svg(psvg, text);
             use function str_to_svg(psvg, "</text>\n");
