@@ -1,0 +1,215 @@
+calling library
+declare struct svg as svg
+Begin
+     declare char* svg;
+     declare int height;
+     declare int width;
+     declare bool finalized;
+End
+
+declare void function str_to_svg(svg* psvg, char* text)
+Begin
+    declare int l equal to sum of the length of (psvg point to svg), the length of (text)  and 1
+    declare char* p equal to Reallocates the size of ((psvg) point to (svg), l) of memory
+    if(p)
+    Begin
+        (psvg) point to (svg) equal p
+    End
+    concatenates the string ((psvg) point to (svg)) with the (text) string,  then the result is stored in the (psvg) point to (svg).
+End
+
+declare void function num_to_svg(svg* psvg, int n)
+Begin
+    declare char sn[16]
+    sends formatted ("%d", n) output to a string pointed to, by sn
+    use function str_to_svg(psvg, sn)
+End
+
+declare svg* function svg_create(int width, int height)
+Begin
+    declare svg* psvg equal to memory allocates the size of (svg) of memory
+    if(psvg not equal to NULL)
+    Begin
+        *psvg = (svg){.svg = NULL, .width = width, .height = height, .finalized = false};
+         psvg point to svg equal to  memory allocates the size of (1) of memory
+         sends formatted ("%s", "\0") output to a string pointed to, by psvg->svg
+         use function str_to_svg(psvg, "<svg width='");
+         use function num_to_svg(psvg, width);
+         use function str_to_svg(psvg, "px' height='");
+         use function num_to_svg(psvg, height);
+         use function str_to_svg(psvg, "px' xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink'>\n");
+         return pvsg
+    End
+    else
+    Begin
+        retrun NULL
+    End
+End
+
+declare void function svg_finalize(svg* psvg)
+Begin
+    use function str_to_svg(psvg, "</svg>");
+    psvg->finalized equal to true
+End
+
+declare void function svg_save(svg* psvg, char* filepath)
+Begin
+    if(!psvg->finalized):
+    Begin
+        svg_finalize(psvg)
+    End
+    declare pointer1(fp)
+    open and write file (filepath)
+    if(fp != NULL)
+    Begin
+        writes the string (psvg->svg) to the file  (fp)
+        close file (fp)
+    End
+End
+
+declare void function svg_free(svg* psvg)
+Begin
+    free the memory stored(psvg->svg)
+    free the memory stored(psvg)
+End
+
+//Max value in array
+declare int function max(int arr[], int arr_length)
+Begin
+    declare int maximum equal to array arr index 0
+    for loop(int i = 1; i < arr_length; i++)
+    Begin
+        if (arr[i] > maximum)
+        Begin
+            maximum equal to array arr index i
+        End
+    End
+    return maximum
+End
+
+declare int m equal to 300
+declare int n equal to 300
+declare void function draw_histogram_svg( int freq[], int count, char* category,char arr[m][n])
+Begin
+    declare svg* psvg
+    psvg equal to svg_create(1000, 1000)
+    if(psvg == NULL)
+    Begin
+        writes a string "psvg is NULL"
+    End
+    else
+    Begin
+//Bar Graph
+        for loop(int i = 0; i < count;i++)
+        Begin
+            str_to_svg(psvg, "    <rect fill='");
+            str_to_svg(psvg, "skyblue");
+            str_to_svg(psvg, "' stroke='");
+            str_to_svg(psvg, "black");
+            str_to_svg(psvg, "' ry='");
+            num_to_svg(psvg, 0);
+            str_to_svg(psvg, "' rx='");
+            num_to_svg(psvg, 0);
+            str_to_svg(psvg, "' y ='");
+            num_to_svg(psvg, 300+(50*i));
+            str_to_svg(psvg, "' x='");
+            num_to_svg(psvg, 300);
+            str_to_svg(psvg, "' stroke-width='");
+            num_to_svg(psvg, 2);
+            str_to_svg(psvg, "px' width='");
+            num_to_svg(psvg,50*freq[i]);
+            str_to_svg(psvg, "' height='");
+            num_to_svg(psvg, 40);
+
+            str_to_svg(psvg, "' />\n");
+        End
+
+// Highest Frequency
+    declare int max_freq equal to max(freq,count);
+
+// Line X-axis
+        use function str_to_svg(psvg, "    <line stroke='");
+        use function str_to_svg(psvg, "black");
+        use function str_to_svg(psvg, "' stroke-width='");
+        use function num_to_svg(psvg, 2);
+        use function str_to_svg(psvg, "px' y2='");
+        use function num_to_svg(psvg, 300+(50*count));
+        use function str_to_svg(psvg, "' x2='");
+        use function num_to_svg(psvg, 300);
+        use function str_to_svg(psvg, "' y1='");
+        use function num_to_svg(psvg, 300+(50*count));
+        use function str_to_svg(psvg, "' x1='");
+        use function num_to_svg(psvg, 310+(50*max_freq));
+        use function str_to_svg(psvg, "' />\n");
+
+// Line Y-axis
+        use function str_to_svg(psvg, "    <line stroke='");
+        use function str_to_svg(psvg, "black");
+        use function str_to_svg(psvg, "' stroke-width='");
+        use function num_to_svg(psvg, 2);
+        use function str_to_svg(psvg, "px' y2='");
+        use function num_to_svg(psvg, 290);
+        use function str_to_svg(psvg, "' x2='");
+        use function num_to_svg(psvg, 300);
+        use function str_to_svg(psvg, "' y1='");
+        use function num_to_svg(psvg, 300+(50*count));
+        use function str_to_svg(psvg, "' x1='");
+        use function num_to_svg(psvg, 300);
+        use function str_to_svg(psvg, "' />\n");
+
+//Frequency Label
+        use function str_to_svg(psvg, "    <text x='");
+        use function num_to_svg(psvg, (250+(50*max_freq)/2));
+        use function str_to_svg(psvg, "' y = '");
+        use function num_to_svg(psvg, (460+(50*count)/2));
+        use function str_to_svg(psvg, "' stroke='");
+        use function str_to_svg(psvg, "black");
+        use function str_to_svg(psvg, "' fill='");
+        use function str_to_svg(psvg, "black");
+        use function str_to_svg(psvg, "' font-size='");
+        use function num_to_svg(psvg, 20);
+        use function str_to_svg(psvg, "px'>");
+        use function str_to_svg(psvg, "Frequency");
+        use function str_to_svg(psvg, "</text>\n");
+
+// Categories Label
+        use function str_to_svg(psvg, "    <text x='");
+        use function num_to_svg(psvg, 250);
+        use function str_to_svg(psvg, "' y = '");
+        use function num_to_svg(psvg, 280);
+        use function str_to_svg(psvg, "' stroke='");
+        use function str_to_svg(psvg, "black");
+        use function str_to_svg(psvg, "' fill='");
+        use function str_to_svg(psvg, "black");
+        use function str_to_svg(psvg, "' font-size='");
+        use function num_to_svg(psvg, 20);
+        use function str_to_svg(psvg, "px'>");
+        use function str_to_svg(psvg, category);
+        use function str_to_svg(psvg, "</text>\n");
+
+        for loop(int i = 0; i < count;i++)
+        Begin
+            use function str_to_svg(psvg, "    <text x='");
+            use function num_to_svg(psvg, 220);
+            use function str_to_svg(psvg, "' y = '");
+            use function num_to_svg(psvg, 330+(50*i));
+            use function str_to_svg(psvg, "' stroke='");
+            use function str_to_svg(psvg, "black");
+            use function str_to_svg(psvg, "' fill='");
+            use function str_to_svg(psvg, "black");
+            use function str_to_svg(psvg, "' font-size='");
+            use function num_to_svg(psvg, 20);
+            use function str_to_svg(psvg, "px'>");
+            declare char text[textsize];
+            sprintf(text, "%s", arr[i]);
+            sends formatted ("%s", arr[i]) output to a string pointed to, by text
+            use function str_to_svg(psvg, text);
+            use function str_to_svg(psvg, "</text>\n");
+
+            use function str_to_svg(psvg, "' />\n");
+        End
+        use function svg_finalize(psvg);
+        use function svg_save(psvg, "histogram.svg");
+        use function svg_free(psvg);
+    End
+End
