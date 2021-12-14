@@ -64,7 +64,7 @@ Begin
         Begin
             Display " Categories: ((database) at index i) \n Freq: ((freq) at index i) \n"
         End
-        use function draw_histogram_svg with argument ((freq), (elements), (categories),(database),(size))
+        use function draw_histogram_svg with argument ((freq), (elements), (categories),(database))
     End
     close file (data)
 End

@@ -158,7 +158,7 @@ Begin
         use function num_to_svg(psvg, 300);
         use function str_to_svg(psvg, "' />\n");
 
-//Frequency Label
+//Frequency Label on x-axis
         use function str_to_svg(psvg, "    <text x='");
         use function num_to_svg(psvg, (250+(50*max_freq)/2));
         use function str_to_svg(psvg, "' y = '");
@@ -173,7 +173,7 @@ Begin
         use function str_to_svg(psvg, "Frequency");
         use function str_to_svg(psvg, "</text>\n");
 
-// Categories Label
+// Categories Label on y-axis
         use function str_to_svg(psvg, "    <text x='");
         use function num_to_svg(psvg, 250);
         use function str_to_svg(psvg, "' y = '");
